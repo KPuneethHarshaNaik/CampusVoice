@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Complaint</title>
+  <link rel="stylesheet" href="complaint-style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Submit a Complaint</h1>
+    <!-- Form that sends data to submit_complaint.php -->
+    <form action="submit_complaint.php" method="POST">
+      <label for="category">Select Complaint Category:</label>
+      <select name="category" id="category">
+        <option value="">-- Select an option --</option>
+        <option value="academic">Academic Issue</option>
+        <option value="admin">Administrative Issue</option>
+        <option value="infrastructure">Infrastructure</option>
+        <option value="hostel">Hostel and Mess</option>
+        <option value="technical">Technical Issue</option>
+        <option value="behavior">Behavior and Discipline</option>
+        <option value="transport">Transport and Security</option>
+        <option value="placement">Placement and Career</option>
+        <option value="event">Event or Club Related Issues</option>
+      </select>
+
+      <div id="questions-container"></div>
+
+      <label for="details">Detailed Explanation:</label>
+      <textarea name="details" id="details" rows="6" placeholder="Describe your issue in detail..."></textarea>
+
+      <button type="submit" id="submitBtn">Submit Complaint</button>
+    </form>
+  </div>
+
+  <script src="complaint-script.js"></script>
+</body>
+</html>

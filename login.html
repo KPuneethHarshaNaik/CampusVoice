@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="./loginstyle.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <!-- Firebase Config -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1KquBqYf7meGJObZ89Zv4oY4fuWgHayw",
+      authDomain: "collegeportal-f7be4.firebaseapp.com",
+      projectId: "collegeportal-f7be4",
+      storageBucket: "collegeportal-f7be4.appspot.com",
+      messagingSenderId: "292197106964",
+      appId: "1:292197106964:web:52df164c9f5796595dee01"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+</head>
+<body>
+  <div class="background">
+    <div class="container">
+      <!-- Student Login / Create Account -->
+      <div class="glass-box student-box">
+        <div class="form-container">
+          <!-- Student Login Form -->
+          <form id="student-login-form" class="form active">
+            <h2>Student Login</h2>
+            <div class="form-group">
+              <label for="student-email">Email</label>
+              <input type="email" id="student-email" required />
+            </div>
+            <div class="form-group">
+              <label for="student-password">Password</label>
+              <input type="password" id="student-password" required />
+            </div>
+            <button type="button" onclick="studentLogin()">Login</button>
+          </form>
+
+          <!-- Create Account Form -->
+          <form id="create-account-form" class="form">
+            <h2>Create Account</h2>
+            <div class="form-group">
+              <label for="create-name">Name</label>
+              <input type="text" id="create-name" required />
+            </div>
+            <div class="form-group">
+              <label for="create-email">Email</label>
+              <input type="email" id="create-email" required />
+            </div>
+            <div class="form-group">
+              <label for="create-password">Password</label>
+              <input type="password" id="create-password" required />
+            </div>
+            <button type="button" onclick="createAccount()">Create Account</button>
+          </form>
+        </div>
+
+        <div class="switch-container">
+          <div id="to-create-account" class="switch active">
+            <p>Don't have an account?</p>
+            <button type="button" onclick="switchForm('create-account')">Create Account</button>
+          </div>
+          <div id="to-student-login" class="switch">
+            <p>Already have an account?</p>
+            <button type="button" onclick="switchForm('student-login')">Login</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Login -->
+      <div class="glass-box admin-box">
+        <div class="icon-container">
+          <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 0 L100 25 V75 L50 100 L0 75 V25 Z" fill="#fff"/>
+          </svg>
+        </div>
+        <form id="admin-login-form" class="form active">
+          <h2>Admin Login</h2>
+          <div class="form-group">
+            <label for="admin-id">ID</label>
+            <input type="text" id="admin-id" placeholder="Enter ID" required />
+          </div>
+          <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" placeholder="Enter Password" required />
+          </div>
+          <button type="button" onclick="adminLogin()">Login</button>
+        </form>
+        <p class="admin-text">Admin Access Only</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Switch between login/create account
+    function switchForm(form) {
+      document.getElementById('student-login-form').classList.toggle('active', form === 'student-login');
+      document.getElementById('create-account-form').classList.toggle('active', form === 'create-account');
+      document.getElementById('to-create-account').classList.toggle('active', form === 'student-login');
+      document.getElementById('to-student-login').classList.toggle('active', form === 'create-account');
+    }
+
+    // Student Login
+    function studentLogin() {
+      const email = document.getElementById("student-email").value;
+      const password = document.getElementById("student-password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "./dashboard.html";
+        })
+        .catch(error => {
+          alert("Login failed: " + error.message);
+        });
+    }
+
+    // Create Account
+    function createAccount() {
+      const name = document.getElementById("create-name").value;
+      const email = document.getElementById("create-email").value;
+      const password = document.getElementById("create-password").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(cred => {
+          return db.collection("users").doc(cred.user.uid).set({
+            name: name,
+            email: email,
+            role: "student"
+          });
+        })
+        .then(() => {
+          alert("Account created successfully");
+          switchForm("student-login");
+        })
+        .catch(error => {
+          alert("Error: " + error.message);
+        });
+    }
+
+    // Admin Login (Static credentials for demo)
+    function adminLogin() {
+      const id = document.getElementById("admin-id").value;
+      const password = document.getElementById("admin-password").value;
+
+      // Demo: Replace this with Firebase Auth if needed
+      if (id === "admin" && password === "admin123") {
+        window.location.href = "/admin-dashboard.html";
+      } else {
+        alert("Invalid admin credentials");
+      }
+    }
+  </script>
+</body>
+</html>

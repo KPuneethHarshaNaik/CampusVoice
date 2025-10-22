@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings - Complaint Portal</title>
+  <link rel="stylesheet" href="dashboardstyle.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-black">
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <i data-lucide="settings"></i>
+        <span>ComplaintPortal</span>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="/" class="nav-item">
+          <i data-lucide="home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/complaints.html" class="nav-item">
+          <i data-lucide="file-text"></i>
+          <span>Complaints</span>
+        </a>
+        <a href="/new-complaint.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>New Complaint</span>
+        </a>
+        <a href="/settings.html" class="nav-item active">
+          <i data-lucide="settings"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <button class="logout-btn">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <nav class="top-nav">
+        <div class="search-container">
+          <input type="search" placeholder="Search..." class="search-input">
+        </div>
+        <div class="nav-actions">
+          <button class="icon-btn">
+            <i data-lucide="bell"></i>
+          </button>
+          <button class="icon-btn">
+            <i data-lucide="settings"></i>
+          </button>
+          <div class="user-profile">
+            <div class="avatar">
+              <i data-lucide="user"></i>
+            </div>
+            <span>John Doe</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="settings-page">
+        <div class="settings-header">
+          <h1>Settings</h1>
+          <p>Manage your account preferences</p>
+        </div>
+
+        <form class="settings-form">
+          <div class="form-group">
+            <label for="username">Display Name</label>
+            <input type="text" id="username" placeholder="Enter your name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Change Password</label>
+            <input type="password" id="password" placeholder="New Password">
+          </div>
+
+          <div class="form-group">
+            <label for="notifications">Notifications</label>
+            <select id="notifications">
+              <option value="enabled">Enable</option>
+              <option value="disabled">Disable</option>
+            </select>
+          </div>
+
+          <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

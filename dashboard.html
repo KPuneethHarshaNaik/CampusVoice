@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Complaint Portal</title>
+  <link rel="stylesheet" href="dashboardstyle.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-black">
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <i data-lucide="message-square" class="logo-icon"></i>
+        <span>ComplaintPortal</span>
+        </a>
+        
+      </div>
+      
+        <a href="/complaints.html" class="nav-item">
+          <i data-lucide="file-text"></i>
+          <span>Complaints</span>
+        </a>
+        <a href="/new-complaint.html" class="nav-item">
+          <i data-lucide="plus-circle"></i>
+          <span>New Complaint</span>
+        </a>
+        <a href="/settings.html" class="nav-item">
+          <i data-lucide="settings"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+      
+      <button class="logout-btn">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </button>
+    </aside>
+
+    <main class="main-content">
+      <nav class="top-nav">
+        <div class="search-container">
+          <input type="search" placeholder="Search..." class="search-input">
+        </div>
+        
+        <div class="nav-actions">
+          <button class="icon-btn">
+            <i data-lucide="bell"></i>
+          </button>
+          <button class="icon-btn">
+            <i data-lucide="settings"></i>
+          </button>
+          <div class="user-profile">
+            <div class="avatar">
+              <i data-lucide="user"></i>
+            </div>
+            <span>PUNEETH</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <h1>Dashboard</h1>
+          <p>Welcome back, PUNEETH</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <i data-lucide="file-text" class="text-red"></i>
+            <div class="stat-info">
+              <span class="stat-value">12</span>
+              <span class="stat-label">Total Complaints</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i data-lucide="clock" class="text-yellow"></i>
+            <div class="stat-info">
+              <span class="stat-value">5</span>
+              <span class="stat-label">Pending</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i data-lucide="check-circle" class="text-green"></i>
+            <div class="stat-info">
+              <span class="stat-value">7</span>
+              <span class="stat-label">Resolved</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i data-lucide="alert-circle" class="text-red"></i>
+            <div class="stat-info">
+              <span class="stat-value">2</span>
+              <span class="stat-label">Urgent</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-complaints">
+          <div class="section-header">
+            <h2>Recent Complaints</h2>
+            <a href="/complaints.html" class="view-all">View all</a>
+          </div>
+          
+          <div class="complaints-list" id="recent-complaints">
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+<!-- AI Complaint Rewriter Chat Box Start -->
+<div class="chatbox">
+  <div class="chatbox-header">
+    <span>Complaint Rewriter</span>
+    <button class="chatbox-toggle" onclick="toggleChat()">_</button>
+  </div>
+  <div class="chatbox-body" id="chat-body">
+    <div class="chat-message bot">Paste your complaint below. I'll suggest a better version!</div>
+  </div>
+  <div class="chatbox-footer">
+    <textarea id="chat-input" placeholder="Paste complaint here..." rows="3"></textarea>
+    <button onclick="rewriteComplaint()">Rewrite</button>
+  </div>
+</div>
+
+<style>
+  /* Chatbox container */
+  .chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    background: #1a1a1a;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    animation: glow 5s infinite alternate;
+  }
+
+  /* Glowing border animation */
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d, 0 0 30px #ff4d4d;
+      border-color: #ff4d4d;
+    }
+    25% {
+      box-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00;
+      border-color: #ffcc00;
+    }
+    50% {
+      box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+      border-color: #00ffcc;
+    }
+    75% {
+      box-shadow: 0 0 10px #3399ff, 0 0 20px #3399ff, 0 0 30px #3399ff;
+      border-color: #3399ff;
+    }
+    100% {
+      box-shadow: 0 0 10px #cc66ff, 0 0 20px #cc66ff, 0 0 30px #cc66ff;
+      border-color: #cc66ff;
+    }
+  }
+
+  /* Chatbox header */
+  .chatbox-header {
+    background: #111;
+    padding: 10px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .chatbox-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  /* Chatbox body */
+  .chatbox-body {
+    background: #222;
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 200px;
+  }
+
+  .chat-message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 20px;
+    max-width: 85%;
+    word-wrap: break-word;
+  }
+
+  .chat-message.bot {
+    background: #333;
+    color: #fff;
+    align-self: flex-start;
+  }
+
+  .chat-message.user {
+    background: #ffd700;
+    color: black;
+    align-self: flex-end;
+  }
+
+  /* Chatbox footer */
+  .chatbox-footer {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #444;
+    background: #111;
+    padding: 10px;
+  }
+
+  .chatbox-footer textarea {
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    border: none;
+    background: #222;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Rewrite button style + glowing effect on hover */
+  .chatbox-footer button {
+    padding: 10px;
+    background: #ffd700;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chatbox-footer button:hover {
+    background: #ffcc00;
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700;
+  }
+</style>
+
+
+<script>
+  function rewriteComplaint() {
+    const input = document.getElementById('chat-input');
+    const complaint = input.value.trim();
+    if (complaint) {
+      const chatBody = document.getElementById('chat-body');
+      
+      // Show the original complaint
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-message user';
+      userMsg.textContent = complaint;
+      chatBody.appendChild(userMsg);
+
+      // Very simple "rewriting" logic (local)
+      let rewritten = complaint
+        .replace(/i/g, 'I')
+        .replace(/pls/gi, 'please')
+        .replace(/can't/gi, 'cannot')
+        .replace(/don't/gi, 'do not')
+        .replace(/won't/gi, 'will not')
+        .replace(/u/gi, 'you')
+        .replace(/\bthx\b/gi, 'thank you')
+        .replace(/\bplz\b/gi, 'please')
+        .replace(/\bASAP\b/gi, 'as soon as possible');
+
+      rewritten = "Suggested Rewrite: " + rewritten;
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'chat-message bot';
+      botMsg.textContent = rewritten;
+      chatBody.appendChild(botMsg);
+
+      chatBody.scrollTop = chatBody.scrollHeight;
+      input.value = '';
+    }
+  }
+
+  function toggleChat() {
+    const chatBody = document.getElementById('chat-body');
+    const chatFooter = document.querySelector('.chatbox-footer');
+    if (chatBody.style.display === 'none') {
+      chatBody.style.display = 'block';
+      chatFooter.style.display = 'flex';
+    } else {
+      chatBody.style.display = 'none';
+      chatFooter.style.display = 'none';
+    }
+  }
+</script>
+<!-- AI Complaint Rewriter Chat Box End -->
+
+</body>
+</html>

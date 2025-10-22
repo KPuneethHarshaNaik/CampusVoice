@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="dashboardstyle.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-black">
+
+  <div class="container" style="padding: 40px;">
+    <h1 style="color: red; font-family: 'Inter', sans-serif;">Admin Dashboard</h1>
+    <p style="color: white;">All submitted complaints with reference IDs:</p>
+
+    <div class="status-container">
+        <div>
+            <h3>Pending Complaints</h3>
+            <div id="pendingList" class="complaint-section"></div>
+        </div>
+        <div>
+            <h3>Resolved Complaints</h3>
+            <div id="resolvedList" class="complaint-section"></div>
+        </div>
+    </div>
+  </div>
+
+  <script src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+body {
+    background: linear-gradient(to right, #4b2e83, #8a4af3);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .glass-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    color: white;
+    width: 300px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-sizing: border-box;
+    display: block; /* Ensure input is displayed as a block element */
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #8a4af3;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #6b3cc9;
+  }
+  
+  .switch-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .switch {
+    display: none;
+  }
+  
+  .switch.active {
+    display: block;
+  }
+  
+  .switch p {
+    margin: 0 0 5px 0;
+  }
+  
+  .switch button {
+    background: none;
+    border: none;
+    color: #8a4af3;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .form {
+    display: none;
+  }
+  
+  .form.active {
+    display: block;
+  }
+  
+  .admin-box {
+    text-align: center;
+  }
+  
+  .icon-container {
+    margin-bottom: 20px;
+  }
+  
+  .admin-text {
+    margin-top: 10px;
+  }
